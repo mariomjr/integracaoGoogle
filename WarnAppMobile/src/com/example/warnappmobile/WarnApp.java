@@ -1,27 +1,42 @@
 package com.example.warnappmobile;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.warnappmobile.gcm.util.GCM;
 
 public class WarnApp extends ActionBarActivity {
 
+    private Button botaoAtivarDesativar;
+    private boolean gcmAtivo;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_warn_app);
 
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+//		if (savedInstanceState == null) {
+//			getSupportFragmentManager().beginTransaction()
+//					.add(R.id.container, new PlaceholderFragment()).commit();
+//		}
+		
+	      botaoAtivarDesativar = (Button) findViewById(R.id.botao_ativar_desativar);
+	        /**
+	         *  Verifica se o GCM está ativo ou não para definir a Label 
+	         *  do botão na tela
+	         */
+	        gcmAtivo = GCM.isAtivo(getApplicationContext());
+	        // Define a Label do botão
+	        defineLabelBotao();
+		
 	}
 
 	@Override
@@ -60,5 +75,43 @@ public class WarnApp extends ActionBarActivity {
 			return rootView;
 		}
 	}
+	
+	     
+
+
+	     
+	    /**
+	     * Método que irá ativar/desativar o serviço GCM de acordo 
+	     * com o seu status atual. Se o GCM estiver desabilitado, este 
+	     * método irá ativá-lo, ou vice-versa.
+	     * 
+	     * @param view
+	     */
+	    public void ativaDesativaGCM(View view) {
+	        if (GCM.isAtivo(getApplicationContext())) {
+	            GCM.desativa(getApplicationContext());
+	            gcmAtivo = false;
+	            Toast.makeText(getApplicationContext(), "GCM desativado!", Toast.LENGTH_LONG).show();
+	        } else {
+	            GCM.ativa(getApplicationContext());
+	            gcmAtivo = true;
+	            Toast.makeText(getApplicationContext(), "GCM ativado!", Toast.LENGTH_LONG).show();
+	        }
+	        defineLabelBotao();
+	    }
+	     
+	    /**
+	     * Método que irá definir a Label do botão da tela, de
+	     * acordo com a seguinte regra:
+	     * 1. se o GCM estiver ativo, a label será: Desativar
+	     * 2. se o GCM NÃO estiver ativo, a label será: Ativar
+	     */
+	    private void defineLabelBotao() {
+	        if (gcmAtivo) {
+	            botaoAtivarDesativar.setText("Desativar");
+	        } else {
+	            botaoAtivarDesativar.setText("Ativar");
+	        }
+	    }
 
 }
