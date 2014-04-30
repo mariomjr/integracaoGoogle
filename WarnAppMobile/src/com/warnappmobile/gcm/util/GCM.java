@@ -5,42 +5,49 @@ import android.util.Log;
 
 import com.google.android.gcm.GCMRegistrar;
 
+/**
+ * Classe utilit√°ria respons√°vel por ativar/desativar o 
+ * aplicativo nos servidores GCM do Google.
+ * 
+ * @author lucasfreitas
+ *
+ */
 public class GCM {
-    
-    /**
-     * MÈtodo respons·vel por ativar o uso do GCM.
-     * @param context
-     */
-    public static void ativa(Context context) {
-        GCMRegistrar.checkDevice(context);
-        GCMRegistrar.checkManifest(context);
-        final String regId = GCMRegistrar
-                .getRegistrationId(context);
-        if (regId.equals("")) {
-            GCMRegistrar.register(context, Constantes.SENDER_ID);
-            Log.i(Constantes.TAG, "ServiÁo GCM ativado.");
-        } else {
-            Log.i(Constantes.TAG, "O serviÁo GCM j· est· ativo. ID: " + regId);
-        }
-    }
-     
-    /**
-     * MÈtodo respons·vel por desativar o uso do GCM.
-     * @param context
-     */
-    public static void desativa(Context context) {
-            GCMRegistrar.unregister(context);
-            Log.i(Constantes.TAG, "ServiÁo GCM desativado.");
-    }
-     
-    /**
-     * MÈtodo respons·vel por verificar se o aplicativo 
-     * est· ou n„o registrado para uso do GCM.
-     * @param context
-     * @return
-     */
-    public static boolean isAtivo(Context context) {
-        return GCMRegistrar.isRegistered(context);
-    }
- 
+	
+	/**
+	 * M√©todo respons√°vel por ativar o uso do GCM.
+	 * @param context
+	 */
+	public static void ativa(Context context) {
+		GCMRegistrar.checkDevice(context);
+		GCMRegistrar.checkManifest(context);
+		final String regId = GCMRegistrar
+				.getRegistrationId(context);
+		if (regId.equals("")) {
+			GCMRegistrar.register(context, Constantes.SENDER_ID);
+			Log.i(Constantes.TAG, "Servi√ßo GCM ativado.");
+		} else {
+			Log.i(Constantes.TAG, "O servi√ßo GCM j√° est√° ativo. ID: " + regId);
+		}
+	}
+	
+	/**
+	 * M√©todo respons√°vel por desativar o uso do GCM.
+	 * @param context
+	 */
+	public static void desativa(Context context) {
+			GCMRegistrar.unregister(context);
+			Log.i(Constantes.TAG, "Servi√ßo GCM desativado.");
+	}
+	
+	/**
+	 * M√©todo respons√°vel por verificar se o aplicativo 
+	 * est√° ou n√£o registrado para uso do GCM.
+	 * @param context
+	 * @return
+	 */
+	public static boolean isAtivo(Context context) {
+		return GCMRegistrar.isRegistered(context);
+	}
+
 }
