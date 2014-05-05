@@ -3,12 +3,12 @@ package com.warnappmobile.gcm.util;
 import com.warnappmobile.activity.MostraMensagemActivity;
 import com.warnappmobile.activity.WarnAppActivity;
 
-import android.R;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.appcompat.R;
 
 public class Notificacao {
 
@@ -24,7 +24,7 @@ public class Notificacao {
 		long tempoDefinido = System.currentTimeMillis();
 
 		// Objeto Notification
-		Notification notification = new Notification(R.drawable.alert_dark_frame,
+		Notification notification = new Notification(R.drawable.abc_ab_share_pack_holo_dark,
 				titulo, tempoDefinido);
 
 		// Intent que será disparada quando o usuário clicar sobre a Notificação

@@ -1,7 +1,5 @@
 package com.warnappmobile.activity;
 
-import br.com.hachitecnologia.gcm.util.GCM;
-
 import com.warnappmobile.gcm.util.*;
 import com.example.warnappmobile.R;
 
